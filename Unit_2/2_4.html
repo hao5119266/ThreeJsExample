@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="C:\Users\王健\AppData\Local\Temp\Temp1_three.js-master.zip\three.js-master\build\three.js">
+		
+	</script>
+	<script type="text/javascript">
+		function init(){
+			var renderer=new THREE.WebGLRenderer({
+				canvas:document.getElementById('mainCanvas')
+			});
+			renderer.setClearColor(0x000000);
+
+			var scene=new THREE.Scene();
+
+       //THREE.PerspectiveCamera(fov,aspect,near,far)透视投影照相机
+       var camera=new THREE.PerspectiveCamera(45,400/300,1,10);
+       camera.position.set(0,0,5);
+
+       var cube=new THREE.Mesh(new THREE.CubeGeometry(1,1,1),new THREE.MeshBasicMaterial({
+       	color:0xff0000,
+       	wireframe:true
+       }));
+       scene.add(cube);
+
+       renderer.render(scene,camera);
+   }
+</script>
+</head>
+<body onload="init()">
+	<canvas id="mainCanvas" width="400px" height="300px"></canvas>
+</body>
+</html>

@@ -1,0 +1,38 @@
+	<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="C:\Users\王健\AppData\Local\Temp\Temp1_three.js-master.zip\three.js-master\build\three.js">
+      
+  </script>
+  <script type="text/javascript">
+      function init(){
+      	var renderer=new THREE.WebGLRenderer({
+      		canvas:document.getElementById('mainCanvas')
+      	});
+      	renderer.setClearColor(0x000000);
+
+      	var scene=new THREE.Scene();
+
+        //正交投影照相机THREE.OrthographicCamera(left,right,top,bottom,near,far)
+        var camera=new THREE.OrthographicCamera(-2,2,1.5,-1.5,1,10);
+        //camera.position.set(0,0,5);//camera.lookAt(new THREE.Vector3(0,0,0));
+        camera.position.set(4,-3,5);
+        camera.lookAt(new THREE.Vector3(0,0,0));
+        scene.add(camera);
+
+        var cube=new THREE.Mesh(new THREE.CubeGeometry(1,1,1),
+        	new THREE.MeshBasicMaterial({//Three在MeshBasicMaterial画立方体会在立方体侧面绘制一条对角线
+        		color:0xff0000,
+        		wireframe:true
+        	}));
+        scene.add(cube);
+
+        renderer.render(scene,camera);
+
+      }
+  </script>
+</head>
+<body onload="init()">
+   <canvas id="mainCanvas" width="400px" height="300px"></canvas>
+</body>
+</html>

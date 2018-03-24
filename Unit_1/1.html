@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="C:\Users\王健\AppData\Local\Temp\Temp1_three.js-master.zip\three.js-master\build\three.js">
+      
+  </script>
+  <script type="text/javascript">
+      function init(){
+        //------------------------render--------------------------
+    
+          var renderer=new THREE.WebGLRenderer();//新建渲染器  对比CanvasRender(2D)
+          renderer.setSize(400,300);//指定渲染器宽高，需和画布大小一致
+          document.getElementsByTagName('body')[0].appendChild(renderer.domElement);
+         //将渲染器添加至对应Canvas
+         //document.getElementsByTagName返回带有指定标签名的对象的集合 
+         //getElementById返回指定对象id
+         //getElementsByName
+         renderer.setClearColor(0x000000);
+         //------------------------scene----------------------
+        var scene=new THREE.Scene();
+
+         //-----------------------camera---------------------
+               var camera=new THREE.PerspectiveCamera(45,4/3,1,1000);
+               camera.position.set(0,0,5);
+               scene.add(camera);
+         //------------------------cube----------------------
+    var cube=new THREE.Mesh(new THREE.CubeGeometry(1,2,3),new THREE.MeshBasicMaterial({
+        color:0xff0000
+    }));
+    scene.add(cube);
+         //---------------------render------------------------------
+         renderer.render(scene,camera);
+ }
+
+  </script>
+</head>
+<body onload="init()">
+   <canvas id="mainCanvas" width="400px" height="300px">//自定义canvas
+   </canvas>
+</body>
+</html>

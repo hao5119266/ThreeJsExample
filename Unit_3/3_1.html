@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="C:\Users\王健\AppData\Local\Temp\Temp1_three.js-master.zip\three.js-master\build\three.js">
+    
+  </script>
+  <script type="text/javascript">
+    function init(){
+      var renderer=new THREE.WebGLRenderer({
+        canvas:document.getElementById('mainCanvas')
+      });
+      renderer.setClearColor(0x000000);
+
+      var scene=new THREE.Scene();
+
+      var camera=new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100);
+      camera.position.set(25,25,25);
+      camera.lookAt(new THREE.Vector3(0,0,0));
+      scene.add(camera);
+
+        //长方形
+        // //THREE.CubeGeometry(width,height,depth,widthSegments,heightSegments,depthSegments)
+        // var cube1=new THREE.Mesh(new THREE.CubeGeometry(1,2,3),new THREE.MeshBasicMaterial({
+        //     color:0xff0000,
+        //     wireframe:true
+        //   }));
+        // //const box=new THREE.BoxHelper(cube,0xff0000);
+        // scene.add(cube1);
+
+        // var cube2=new THREE.Mesh(new THREE.CubeGeometry(1,2,3,2,2,3),new THREE.MeshBasicMaterial({
+        //     color:0xff0000,
+        //     wireframe:true
+        //   }));
+        // //const box=new THREE.BoxHelper(cube,0xff0000);
+        // scene.add(cube2);
+
+        //平面
+        //THREE.PlaneGeometry(width,height,widthSegment,heightSegment)
+        // var cube3=new THREE.Mesh(new THREE.PlaneGeometry(2,4),new THREE.MeshBasicMaterial({
+        //     color:0xff0000,
+        //     wireframe:true
+        //   }));
+        // //const box=new THREE.BoxHelper(cube,0xff0000);
+        // scene.add(cube3);
+
+        // renderer.render(scene,camera);
+
+      //球形
+      //THREE.SphereGeometry(radius,segmentWidth,segmentsHeight,phiStart,phiLength,thetaStart,thetaLength)radius是半径；segmentsWidth表示经度上的切片数；segmentsHeight表示纬度上的切片数；phiStart表示经度开始的弧度；phiLength表示经度跨过的弧度；thetaStart表示纬度开始的弧度；thetaLength表示纬度跨过的弧度
+    //   var cube4=new THREE.Mesh(new THREE.SphereGeometry (3,8,6,Math.PI/2,Math.PI,Math.PI/6,Math.PI/2)//(3,8,6,0,Math.PI*2,Math.PI/6,Math.PI/3)//(3,8,6,Math.PI/6,Math.PI/3) //(3,8,6) //(3,18,12)
+    //     ,new THREE.MeshBasicMaterial({
+    //     color:0xff0000,
+    //     wireframe:true
+    //    }));
+    
+    // scene.add(cube4);
+    // renderer.render(scene,camera);
+
+    //圆形
+    //THREE.CircleGeometry(radius,segment,thetaStart,thetaLength)
+    // var cube5=new THREE.Mesh(new THREE.CircleGeometry(3,18,Math.PI/3,Math.PI*4/3),new THREE.MeshBasicMaterial({
+    //   color:0xff0000,
+    //   wireframe:true
+    // }));
+    // scene.add(cube5);
+    // renderer.render(scene,camera);
+    
+
+   //圆柱体
+   //THREE.CylinderGeometry(radiusTop,radiusBottom,height,radiusSegment,heightSegment,openSegment)
+   // var cube6=new THREE.Mesh(new THREE.CylinderGeometry(2,3,4,18,3,true)//(2,3,4,18,3)//(2,2,4,18,3)
+   //  ,new THREE.MeshBasicMaterial({
+   //  color:0xff0000,
+   //  wireframe:true
+   // }));
+   // scene.add(cube6);
+   // renderer.render(scene,camera);
+
+   //正四面体    THREE.TetrahedronGeometry(radius,detail)
+   //正八面体    THREE.OctahedronGeometry(radius,detail)
+   //正二十面体  THREE.IcosahedronGeometry(radius,datail)
+   // var cube7=new THREE.Mesh(new THREE.IcosahedronGeometry(3)//THREE.OctahedronGeometry(3)//THREE.TetrahedronGeometry(3)
+   //  ,new THREE.MeshBasicMaterial({
+   //  color:0xff0000,
+   //  wireframe:true
+   // }));
+
+   // scene.add(cube7);
+   // renderer.render(scene,camera);
+
+   //圆环形
+   //THREE.TorusGeometry(radius,tube,radiusSegments,tubeSegments,arc)
+   // var cube8=new THREE.Mesh(new THREE.TorusGeometry(3,1,12,8,2/3*Math.PI)//(3,1,12,8)//(3,1,4,8)
+   //  ,new THREE.MeshBasicMaterial({
+   //  color:0xff0000,
+   //  wireframe:true
+   // }));
+   // scene.add(cube8);
+   // renderer.render(scene,camera);
+
+   //圆环结
+   //THREE.TorusKnotGeometry(radius,tube,radiusSegments,tubeSegments,p,q,heightScale)
+   var cube9=new THREE.Mesh(new THREE.TorusKnotGeometry(2,0.5,32,8),new THREE.MeshBasicMaterial({
+    color:0xff0000,
+    wireframe:true
+  }));
+   scene.add(cube9);
+   renderer.render(scene,camera);
+ }
+</script>
+</head>
+<body onload="init()">
+ <canvas id="mainCanvas" width="400px" height="300px"></canvas>
+</body>
+</html>
