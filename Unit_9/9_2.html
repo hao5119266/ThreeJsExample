@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+          <script id="vs" type="x-shader/x-vertex">
+            varying vec2 vUv;
+            void main()
+            {    
+                // passing texture to fragment shader
+                vUv = uv;
+                
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        </script>
+        
+        <script id="fs" type="x-shader/x-fragment">
+            varying vec2 vUv;
+            void main() {
+                gl_FragColor = vec4(vUv.x, vUv.y, 0.0, 1.0);
+            }
+        </script>
+  <script type="text/javascript" src="../lib/three.js"></script>
+  <script type="text/javascript" src="../lib/stat.js"></script>
+  <script type="text/javascript">
+  var requestAnimationFrame=window.requestAnimationFrame
+||window.mozRequestAnimationFrame
+||window.webkitRequestAnimationFrame
+||window.msRequestAnimationFrame;
+window.requestAnimationFrame=requestAnimationFrame;
+
+var scene=null;
+var camera=null;
+var renderer=null;
+var cube=null;
+var material=null;
+    function init(){
+        //显示FPS
+        stat=new Stats();
+        stat.domElement.style.position='absolute';
+        stat.domElement.style.right='0px';
+        stat.domElement.style.top='0px'; 
+        document.body.appendChild(stat.domElement);
+
+  	//render
+  	 renderer=new THREE.WebGLRenderer({
+     canvas:document.getElementById('mainCanvas')
+   });
+  
+  	//scene
+  	 scene=new THREE.Scene();
+
+  	//camera
+    camera=new THREE.OrthographicCamera(-5,5,3.75,-3.75,0.1,100);
+  	camera.position.set(5,15,25);
+  	camera.lookAt(new THREE.Vector3(0,0,0));
+  	scene.add(camera);
+
+    //light
+    var light=new THREE.DirectionalLight();
+    light.position.set(3,2,5);
+    scene.add(light);
+
+    // load shader
+    material=new THREE.ShaderMaterial({
+      vertexShader:document.getElementById('vs').textContent,
+      fragmentShader:document.getElementById('fs').textContent
+    });
+
+    //cube
+    cube=new THREE.Mesh(new THREE.CubeGeometry(2,2,2),material);
+    cube.position.x=2;
+    scene.add(cube);
+
+    draw();
+  }
+  function draw(){
+
+    stat.begin();
+
+    cube.rotation.y+=0.01;
+    if(cube.rotation.y>Math.PI*2){
+      cube.rotation.y-=Math.PI*2;
+    }
+    renderer.render(scene,camera);
+
+    requestAnimationFrame(draw);
+
+    stat.end();
+  }
+
+</script>
+</head>
+<body onload="init()">
+  <canvas id="mainCanvas" width="400px" height="300px" ></canvas>
+</body>
+</html>

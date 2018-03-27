@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="../lib/three.js"></script>
+	<script type="text/javascript" src="../lib/stat.js"></script>
+
+	<script type="text/javascript">
+		var requestAnimationFrame=window.requestAnimationFrame
+		||window.mozRequestAnimationFrame
+		||window.webkitRequestAnimationFrame
+		||window.msRequestAnimationFrame;
+		window.requestAnimationFrame=requestAnimationFrame;
+		var renderer=null;
+		var camera=null;
+		
+		var cube=null;
+		var stat=null;
+		
+		
+		var alpha=0;
+		function init(){
+          //FPS
+          stat=new Stats();
+          stat.domElement.style.position='absolute';
+          stat.domElement.style.right='0px';
+          stat.domElement.style.top='0px';
+          document.body.appendChild(stat.domElement);
+
+          //render
+          renderer=new THREE.WebGLRenderer();
+          renderer.setSize(400,300);
+           //以下现版本已不适用
+          // renderer.shadowMapEnabled=true;//告诉渲染器渲染阴影
+           renderer.shadowMap.enabled=true;//告诉渲染器渲染阴影
+          renderer.shadowMapSoft=true;//实现软阴影（阴影的过渡是渐变的，而软阴影的作用就是要模拟这种阴影渐变且在阴影周边制造虚化的效果。）
+
+         
+
+          
+          //container
+          var container=document.getElementById('canvas');
+          container.appendChild(renderer.domElement);
+         
+          
+
+          //scene
+          scene=new THREE.Scene();
+
+
+          //camera
+          camera=new THREE.OrthographicCamera(-5,5,3.75,-3.75,0.1,100);
+          camera.position.set(5,15,25);
+          camera.lookAt(new THREE.Vector3(0,0,0));
+          scene.add(camera);
+
+          //plane
+          var plane=new THREE.Mesh(new THREE.PlaneGeometry(8,8,16,16),new THREE.MeshLambertMaterial({
+          	color:0xcccccc
+          }));
+          plane.rotation.x=-Math.PI/2;
+          plane.position.y = -1;
+          plane.receiveShadow = true;//接收阴影
+          scene.add(plane);
+
+    //cube
+    cube=new THREE.Mesh(new THREE.CubeGeometry(1,1,1),new THREE.MeshLambertMaterial({
+    	color:0x00ff00
+    }));
+    cube.position.x=2;
+    cube.castShadow=true;//产生阴影
+    scene.add(cube);
+    
+    //light
+    var light=new THREE.SpotLight(0xffff00,1,100,Math.PI/6,25);
+    light.position.set(2,5,3);
+    light.target=cube;
+    light.castShadow=true;
+    
+    //设置阴影产生的区域
+    //以下代码现版本已不适用
+    // light.shadowCameraNear=2;
+    // light.shadowCameraFar=10;
+    // light.shadowCameraFov=30;
+   
+    light.shadow.camera.near=2;
+    light.shadow.camera.far=10;
+    light.shadow.camera.fov=30;
+     light.shadowCameraVisible=true;
+    
+    
+    //以下代码现版本已不适用
+    // light.shadowMapWidth=1024;
+    // light.shadowMapHeight=1024;
+    // light.shadowDarkness=0.3;
+    light.shadow.mapSize.width=1024;
+    light.shadow.mapSize.height=1024;
+    scene.add(light);
+
+    //ambient light
+    var ambient=new THREE.AmbientLight(0x666666);
+    scene.add(ambient);
+
+    requestAnimationFrame(draw);
+}
+function draw(){
+	stat.begin();
+
+	alpha+=0.01;
+	if(alpha>Math.PI*2){
+		alpha-=Math.PI*2;
+	}
+	cube.position.set(2*Math.cos(alpha),0,2*Math.sin(alpha));
+
+	renderer.render(scene,camera);
+
+	requestAnimationFrame(draw);
+
+	stat.end();
+}
+
+</script>
+</head>
+
+<body onload="init()">
+	<div id="canvas" width="400px" height="300px"></div>
+</body>
+</html>
